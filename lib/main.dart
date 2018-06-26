@@ -36,7 +36,10 @@ class MLDemos extends StatelessWidget {
           new MLDemosLocalizationsDelegate()
         ],
         routes: {
-          Routes.home: (context) => new HomeScreen(title: 'MLDemos'),
+          Routes.home: (context) => StoreBuilder<AppState>(
+            onInit: (store) => store.dispatch(Load),
+            builder: (context, store) => HomeScreen(title: 'MLDemos'),
+          ),
         },
         builder: (BuildContext context, Widget child) => new Theme(
           data: Provider.of(context).value.theme ?? themes['light'],
