@@ -5,12 +5,12 @@ final Map<String, ThemeData> themes = {
   'light': LightTheme,
 };
 
-final ThemeData DarkTheme = new ThemeData.dark().copyWith(
+final ThemeData DarkTheme = ThemeData.dark().copyWith(
   primaryColor: MLDemosColors.teal[400],
   accentColor: MLDemosColors.grey[400],
 );
 
-final ThemeData LightTheme = new ThemeData.light().copyWith(
+final ThemeData LightTheme = ThemeData.light().copyWith(
   primaryColor: MLDemosColors.teal[400],
   accentColor: MLDemosColors.grey[400],
 );

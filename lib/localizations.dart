@@ -16,7 +16,7 @@ class MLDemosLocalizationsDelegate
 
   @override
   Future<MLDemosLocalizations> load(Locale locale) {
-    return new Future(() => new MLDemosLocalizations());
+    return Future(() => MLDemosLocalizations());
   }
 
   @override

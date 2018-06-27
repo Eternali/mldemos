@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:mldemos/keys.dart';
+import 'package:mldemos/containers/active_activity.dart';
+import 'package:mldemos/models/models.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -10,10 +12,18 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        
-      ),
+    return ActiveActivity(
+      builder: (BuildContext context, AppActivity activeActivity) {
+        return Scaffold(
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(title)
+            ],
+          ),
+        );
+      }
     );
   }
 

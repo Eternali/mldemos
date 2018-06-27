@@ -4,22 +4,20 @@ import 'package:redux/redux.dart';
 
 import 'package:mldemos/localizations.dart';
 import 'package:mldemos/routes.dart';
-import 'package:mldemos/themes.dart';
+import 'package:mldemos/middleware/store_middleware.dart';
 import 'package:mldemos/models/models.dart';
 import 'package:mldemos/presentation/home_screen.dart';
 import 'package:mldemos/reducers/app_reducer.dart';
 
 void main() async {
-  runApp(
-    new MLDemos()
-  );
+  runApp(MLDemos());
 }
 
 class MLDemos extends StatelessWidget {
 
-  final store = new Store<AppState>(
+  final store = Store<AppState>(
     appReducer,
-    initialState: new AppState.loading(),
+    initialState: AppState.loading(),
     middleware: createStoreMiddleware()
   );
 
@@ -30,21 +28,17 @@ class MLDemos extends StatelessWidget {
 
     return StoreProvider(
       store: store,
-      child: new MaterialApp(
+      child: MaterialApp(
         title: 'MLDemos',
         localizationsDelegates: [
-          new MLDemosLocalizationsDelegate()
+          MLDemosLocalizationsDelegate()
         ],
         routes: {
           Routes.home: (context) => StoreBuilder<AppState>(
-            onInit: (store) => store.dispatch(Load),
+            onInit: (store) => store.dispatch(LoadDemosAction()),
             builder: (context, store) => HomeScreen(title: 'MLDemos'),
           ),
         },
-        builder: (BuildContext context, Widget child) => new Theme(
-          data: Provider.of(context).value.theme ?? themes['light'],
-          child: child,
-        ),
       ),
     );
   }
