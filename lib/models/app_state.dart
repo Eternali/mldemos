@@ -36,6 +36,7 @@ class AppState {
     identical(this, other) ||
     other is AppState &&
       runtimeType == other.runtimeType &&
+      activeActivity == other.activeActivity &&
       isLoading == other.isLoading &&
       theme == other.theme;
 
