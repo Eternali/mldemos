@@ -1,7 +1,6 @@
 import 'package:mldemos/themes.dart';
 import 'package:mldemos/models/app_activity.dart';
 
-@immutable
 class AppState {
 
   final AppActivity activeActivity;

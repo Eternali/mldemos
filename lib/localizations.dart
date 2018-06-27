@@ -9,6 +9,8 @@ class MLDemosLocalizations {
     return Localizations.of<MLDemosLocalizations>(context, MLDemosLocalizations);
   }
 
+  String get appTitle => 'MLDemos';
+
 }
 
 class MLDemosLocalizationsDelegate

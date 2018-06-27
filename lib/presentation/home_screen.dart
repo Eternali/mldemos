@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:mldemos/keys.dart';
+import 'package:mldemos/localizations.dart';
 import 'package:mldemos/containers/active_activity.dart';
 import 'package:mldemos/models/models.dart';
 
@@ -12,9 +13,24 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locales = MLDemosLocalizations.of(context);
     return ActiveActivity(
       builder: (BuildContext context, AppActivity activeActivity) {
         return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: new Text(title ?? locales.appTitle),
+            actions: <Widget>[
+              PopupMenuButton<MenuChoice>(
+                onSelected: (MenuChoice choice) {
+                  Navigator.of(context).pushNamed(choice.route);
+                },
+                itemBuilder: (BuildContext context) {
+                  
+                },
+              ),
+            ],
+          ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
