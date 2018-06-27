@@ -1,14 +1,14 @@
 import 'package:mldemos/themes.dart';
-import 'package:mldemos/models/app_activity.dart';
+import 'package:mldemos/models/routes.dart';
 
 class AppState {
 
-  final AppActivity activeActivity;
+  final MLDemosRoute activeRoute;
   final bool isLoading;
   final String theme;
 
   AppState({
-    this.activeActivity = AppActivity.HOME,
+    this.activeRoute = Routes.HOME,
     this.isLoading = false,
     this.theme,
   });
@@ -19,11 +19,11 @@ class AppState {
   );
 
   AppState copyWith({
-    AppActivity activeActivity,
+    MLDemosRoute activeRoute,
     bool isLoading,
     String theme,
   }) => AppState(
-    activeActivity: activeActivity ?? this.activeActivity,
+    activeRoute: activeRoute ?? this.activeRoute,
     isLoading: isLoading ?? this.isLoading,
     theme: theme ?? this.theme,
   );
@@ -36,7 +36,7 @@ class AppState {
     identical(this, other) ||
     other is AppState &&
       runtimeType == other.runtimeType &&
-      activeActivity == other.activeActivity &&
+      activeRoute == other.activeRoute &&
       isLoading == other.isLoading &&
       theme == other.theme;
 

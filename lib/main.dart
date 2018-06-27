@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 import 'package:mldemos/localizations.dart';
-import 'package:mldemos/routes.dart';
+import 'package:mldemos/models/routes.dart';
 import 'package:mldemos/actions/actions.dart';
 import 'package:mldemos/middleware/store_middleware.dart';
 import 'package:mldemos/models/models.dart';
@@ -35,10 +35,13 @@ class MLDemos extends StatelessWidget {
           MLDemosLocalizationsDelegate()
         ],
         routes: {
-          Routes.home: (context) => StoreBuilder<AppState>(
-            onInit: (store) => store.dispatch(LoadDemosAction()),
+          Routes.HOME.loc: (context) => StoreBuilder<AppState>(
+            onInit: (store) => store.dispatch(LoadHomeAction()),
             builder: (context, store) => HomeScreen(title: 'MLDemos'),
           ),
+          Routes.DIGITS_DEMO.loc: (context) => StoreBuilder<AppState>(
+            onInit: (store) => store.dispatch(LoadDemoAction(Routes.DIGITS_DEMO.name)),
+          )
         },
       ),
     );

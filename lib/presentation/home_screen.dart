@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final locales = MLDemosLocalizations.of(context);
     return ActiveActivity(
-      builder: (BuildContext context, AppActivity activeActivity) {
+      builder: (BuildContext context, MLDemosRoute activeRoute) {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
             actions: <Widget>[
               PopupMenuButton<MenuChoice>(
                 onSelected: (MenuChoice choice) {
-                  Navigator.of(context).pushNamed(choice.route);
+                  Navigator.of(context).pushNamed(choice.route.loc);
                 },
                 itemBuilder: (BuildContext context) {
                   

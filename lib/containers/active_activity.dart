@@ -7,7 +7,7 @@ import 'package:mldemos/models/models.dart';
 
 
 class ActiveActivity extends StatelessWidget {
-  final ViewModelBuilder<AppActivity> builder;
+  final ViewModelBuilder<MLDemosRoute> builder;
 
   ActiveActivity({ Key key, @required this.builder }) : super(key: key);
 
@@ -18,20 +18,20 @@ class ActiveActivity extends StatelessWidget {
       converter: ActivityVM.fromStore,
       builder: (BuildContext context, ActivityVM vm) => Theme(
         data: vm.theme ?? themes['light'],
-        child: builder(context, vm.activeActivity),
+        child: builder(context, vm.activeRoute),
       ),
     );
   }
 }
 
 class ActivityVM {
-  final AppActivity activeActivity;
+  final MLDemosRoute activeRoute;
   final String theme;
 
-  ActivityVM({ @required this.activeActivity, @required this.theme });
+  ActivityVM({ @required this.activeRoute, @required this.theme });
 
   static ActivityVM fromStore(Store<AppState> store) => ActivityVM(
-    activeActivity: store.state.activeActivity,
+    activeRoute: store.state.activeRoute,
     theme: store.state.theme,
   );
 }
