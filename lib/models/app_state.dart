@@ -1,14 +1,13 @@
 import 'package:mldemos/themes.dart';
-import 'package:mldemos/models/routes.dart';
 
 class AppState {
 
-  final MLDemosRoute activeRoute;
+  final String activeRoute;
   final bool isLoading;
   final String theme;
 
   AppState({
-    this.activeRoute = Routes.HOME,
+    this.activeRoute = '/',
     this.isLoading = false,
     this.theme,
   });
@@ -19,7 +18,7 @@ class AppState {
   );
 
   AppState copyWith({
-    MLDemosRoute activeRoute,
+    String activeRoute,
     bool isLoading,
     String theme,
   }) => AppState(

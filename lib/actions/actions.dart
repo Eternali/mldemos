@@ -5,8 +5,6 @@ class LoadHomeAction {
 }
 
 class LoadDemoAction {
-  final String demo;
-  LoadDemoAction(demo) {
-    demos[demo].load();
-  }
+  final Function loader;
+  const LoadDemoAction(this.loader);
 }

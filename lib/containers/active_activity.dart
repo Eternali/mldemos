@@ -7,7 +7,7 @@ import 'package:mldemos/models/models.dart';
 
 
 class ActiveActivity extends StatelessWidget {
-  final ViewModelBuilder<MLDemosRoute> builder;
+  final ViewModelBuilder<String> builder;
 
   ActiveActivity({ Key key, @required this.builder }) : super(key: key);
 
@@ -25,7 +25,7 @@ class ActiveActivity extends StatelessWidget {
 }
 
 class ActivityVM {
-  final MLDemosRoute activeRoute;
+  final String activeRoute;
   final String theme;
 
   ActivityVM({ @required this.activeRoute, @required this.theme });

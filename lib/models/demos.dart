@@ -1,39 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:redux/redux.dart';
+
+import 'package:mldemos/models/models.dart';
+import 'package:mldemos/presentation/demo_button.dart';
+import 'package:mldemos/presentation/demo_screen.dart';
 
 final Map<String, Demo> demos = {
-  'digits': DigitsDemo(),
-  'rnn': RNNDemo(),
-  'img': IMGDemo(),
+  'digits': Demo(
+    name: 'digits',
+    route: '/digits_demo',
+    color: Colors.amber,
+  ),
+  'rnn': Demo(
+    name: 'rnn',
+    route: '/rnn_demo',
+    color: Colors.blueAccent,
+  ),
+  'img': Demo(
+    name: 'img',
+    route: '/img_demo',
+    color: Colors.greenAccent,
+  ),
 };
+
+typedef void Loader(Store<AppState> store);
 
 class Demo {
 
-  Function load;
-  Image img;
   String name;
+  String route;
+  Color color;
+  Image img;
   String desc;
-  Widget button;
-  Widget screen;
+  Loader load;
+  DemoButton button;
+  DemoScreen screen;
 
   Demo({
-    this.load,
-    this.img,
     this.name,
+    this.route,
+    this.color,
+    this.img,
     this.desc,
+    this.load,
     this.button,
     this.screen,
-  });
-
-}
-
-class DigitsDemo extends Demo {
-
-}
-
-class RNNDemo extends Demo {
-
-}
-
-class IMGDemo extends Demo {
+  }) {
+    button ??= DemoButton(
+      title: name,
+      color: color,
+      img: img,
+      route: route,
+    );
+    screen ??= DemoScreen();
+  }
 
 }

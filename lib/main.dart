@@ -3,11 +3,12 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 import 'package:mldemos/localizations.dart';
-import 'package:mldemos/models/routes.dart';
 import 'package:mldemos/actions/actions.dart';
 import 'package:mldemos/middleware/store_middleware.dart';
 import 'package:mldemos/models/models.dart';
+import 'package:mldemos/presentation/about_screen.dart';
 import 'package:mldemos/presentation/home_screen.dart';
+import 'package:mldemos/presentation/settings_screen.dart';
 import 'package:mldemos/reducers/app_reducer.dart';
 
 void main() async {
@@ -35,14 +36,22 @@ class MLDemos extends StatelessWidget {
           MLDemosLocalizationsDelegate()
         ],
         routes: {
-          Routes.HOME.loc: (context) => StoreBuilder<AppState>(
+          '/': (context) => StoreBuilder<AppState>(
             onInit: (store) => store.dispatch(LoadHomeAction()),
             builder: (context, store) => HomeScreen(title: 'MLDemos'),
           ),
-          Routes.DIGITS_DEMO.loc: (context) => StoreBuilder<AppState>(
-            onInit: (store) => store.dispatch(LoadDemoAction(Routes.DIGITS_DEMO.name)),
+          '/settings': (context) => StoreBuilder<AppState>(
+            builder: (context, store) => SettingsScreen(),
+          ),
+          '/about': (context) => AboutScreen(),
+        }..addAll(demos.map(
+          (name, demo) => MapEntry(
+            demo.route,
+            (context) => StoreBuilder<AppState>(
+              onInit: (store) => store.dispatch(LoadDemoAction(demo.load)),
+              builder: (context, store) => demo.screen,
           )
-        },
+        ))),
       ),
     );
   }
