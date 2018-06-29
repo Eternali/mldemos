@@ -93,7 +93,11 @@ class DemoButtonState extends State<DemoButton> with SingleTickerProviderStateMi
                 color: (widget.color ?? theme.primaryColor).withOpacity(0.6),
               ),
               child: Text(
-                widget.title
+                widget.title.toUpperCase(),
+                style: theme.accentTextTheme.title.copyWith(
+                  color: Color(0xFF203A43),
+                  letterSpacing: 2.0,
+                ),
               ),
             ),
           ),
