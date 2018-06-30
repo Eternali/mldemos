@@ -36,6 +36,8 @@ class Demo {
   DemoButton button;
   DemoScreen screen;
 
+  String get mainTag => route + name;
+
   Demo({
     this.name,
     this.route,
@@ -46,13 +48,8 @@ class Demo {
     this.button,
     this.screen,
   }) {
-    button ??= DemoButton(
-      title: name,
-      color: color,
-      img: img,
-      route: route,
-    );
-    screen ??= DemoScreen();
+    button ??= DemoButton(this);
+    screen ??= DemoScreen(this);
   }
 
 }

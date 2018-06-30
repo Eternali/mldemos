@@ -38,7 +38,7 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
   void initState() {
     super.initState();
     _controller = AnimationController(duration: Duration(seconds: 20), vsync: this);
-    animation = CurvedAnimation(parent: _controller, curve: Curves.ease)
+    animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut)
       ..addListener(() {
         setState(() {  });
       })
@@ -116,8 +116,9 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
                             (widget.title ?? locales.appTitle).toUpperCase(),
                             textAlign: TextAlign.center,
                             style: theme.textTheme.title.copyWith(
+                              fontFamily: 'Autobus',
                               color: Colors.white70,
-                              letterSpacing: 2.0
+                              letterSpacing: 2.0,
                             ),
                           ),
                         ),

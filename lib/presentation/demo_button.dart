@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import 'package:mldemos/models/demos.dart';
+
 class PulseTween extends Tween<double> {
 
   final double delay;
@@ -17,13 +19,10 @@ class PulseTween extends Tween<double> {
 
 class DemoButton extends StatefulWidget {
 
-  final String title;
-  final Color color;
-  final Image img;
-  final String route;
+  final Demo parent;
   double animDelay;
 
-  DemoButton({ this.title, this.color, this.img, this.route, this.animDelay = 0.0 });
+  DemoButton(this.parent, { this.animDelay = 0.0 });
   
   void withDelay(double delay) {
     this.animDelay = delay;
@@ -64,7 +63,7 @@ class DemoButtonState extends State<DemoButton> with SingleTickerProviderStateMi
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: (widget.color ?? theme.primaryColor).withOpacity(0.6),
+                color: (widget.parent.color ?? theme.primaryColor).withOpacity(0.6),
               ),
             ),
           ),
@@ -75,28 +74,31 @@ class DemoButtonState extends State<DemoButton> with SingleTickerProviderStateMi
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: (widget.color ?? theme.primaryColor).withOpacity(0.6),
+                color: (widget.parent.color ?? theme.primaryColor).withOpacity(0.6),
                 border: Border.all(
                   width: 2.0,
-                  color: widget.color ?? theme.primaryColor
+                  color: widget.parent.color ?? theme.primaryColor
                 ),
               ),
             ),
           ),
           ScaleTransition(
             scale: PulseTween(begin: 0.98, end: 1.02, delay: widget.animDelay * 1.4).animate(_controller),
-            child: Container(
-              margin: EdgeInsets.all(28.0),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: (widget.color ?? theme.primaryColor).withOpacity(0.6),
-              ),
-              child: Text(
-                widget.title.toUpperCase(),
-                style: theme.accentTextTheme.title.copyWith(
-                  color: Color(0xFF203A43),
-                  letterSpacing: 2.0,
+            child: Hero(
+              tag: widget.parent.mainTag,
+              child: Container(
+                margin: EdgeInsets.all(28.0),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: (widget.parent.color ?? theme.primaryColor).withOpacity(0.6),
+                ),
+                child: Text(
+                  widget.parent.name.toUpperCase(),
+                  style: theme.accentTextTheme.title.copyWith(
+                    color: Color(0xFF203A43),
+                    letterSpacing: 2.0,
+                  ),
                 ),
               ),
             ),
