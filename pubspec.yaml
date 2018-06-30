@@ -28,3 +28,8 @@ flutter:
     - family: Autobus
       fonts:
         - asset: assets/fonts/autobus/autobus-bold.ttf
+    - family: PT Mono
+      fonts:
+        - asset: assets/fonts/pt-mono/pt-mono.ttf
+        - asset: assets/fonts/pt-mono/pt-mono-bold.ttf
+          weight: 700

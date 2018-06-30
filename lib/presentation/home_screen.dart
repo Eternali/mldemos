@@ -37,14 +37,16 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: Duration(seconds: 20), vsync: this);
-    animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut)
+    _controller = AnimationController(duration: Duration(seconds: 5), vsync: this);
+    animation = CurvedAnimation(parent: _controller, curve: Curves.linear)
       ..addListener(() {
         setState(() {  });
       })
       ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) _controller.reverse();
-        else if (status == AnimationStatus.dismissed) _controller.forward();
+        if (status == AnimationStatus.completed) {
+          _controller.reset();
+          _controller.forward();
+        }
       });
     _controller.forward();
   }
@@ -53,6 +55,15 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  double calcLeft(Size size, double percent, [ double scale = 4.0 ]) {
+    final double zero = -(size.width * scale / 2.0) + (size.width * scale / 4.0);
+    return zero + (size.width * percent / 100.0);
+  }
+  double calcTop(Size size, double percent, [ double scale = 4.0 ]) {
+    final double zero = -(size.height * scale / 2.0) + (size.height * scale / 4.0);
+    return zero + (size.height * percent / 100.0);
   }
 
   @override
@@ -69,19 +80,20 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
           body: Stack(
             children: <Widget>[
               Positioned(
-                left: 0.0,
-                top: -screenSize.height + (animation.value * screenSize.height),
-                width: screenSize.width,
-                height: screenSize.height * 2,
+                left: calcLeft(screenSize, 100.0 - animation.value * 85.0),
+                top: calcTop(screenSize, animation.value * 100.0), // -screenSize.height * 1.5 + (animation.value * screenSize.height),
+                width: screenSize.width * 4,
+                height: screenSize.height * 4,
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topRight,
                       end: Alignment.bottomLeft,
-                      stops: [0.2, 0.5, 0.8],
+                      stops: [0.0, 0.33, 0.66, 1.0],
                       colors: [
                         Color(0xFF2C5364),
-                        Color(0xFF203A43),
+                        Color(0xFF0F2027),
+                        Color(0xFF2C5364),
                         Color(0xFF0F2027),
                       ],
                     ),
@@ -116,9 +128,10 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
                             (widget.title ?? locales.appTitle).toUpperCase(),
                             textAlign: TextAlign.center,
                             style: theme.textTheme.title.copyWith(
-                              fontFamily: 'Autobus',
+                              fontFamily: 'PT Mono',
+                              fontWeight: FontWeight.w700,
                               color: Colors.white70,
-                              letterSpacing: 2.0,
+                              letterSpacing: 3.0,
                             ),
                           ),
                         ),

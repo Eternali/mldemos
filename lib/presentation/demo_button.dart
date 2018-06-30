@@ -86,18 +86,22 @@ class DemoButtonState extends State<DemoButton> with SingleTickerProviderStateMi
             scale: PulseTween(begin: 0.98, end: 1.02, delay: widget.animDelay * 1.4).animate(_controller),
             child: Hero(
               tag: widget.parent.mainTag,
-              child: Container(
-                margin: EdgeInsets.all(28.0),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: (widget.parent.color ?? theme.primaryColor).withOpacity(0.6),
-                ),
-                child: Text(
-                  widget.parent.name.toUpperCase(),
-                  style: theme.accentTextTheme.title.copyWith(
-                    color: Color(0xFF203A43),
-                    letterSpacing: 2.0,
+              child: GestureDetector(
+                onTap: () => Navigator.of(context).pushNamed(widget.parent.route),
+                child: Container(
+                  margin: EdgeInsets.all(28.0),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: (widget.parent.color ?? theme.primaryColor).withOpacity(0.6),
+                  ),
+                  child: Text(
+                    widget.parent.name.toUpperCase(),
+                    style: theme.accentTextTheme.title.copyWith(
+                      fontFamily: 'PT Mono',
+                      color: Color(0xFF203A43),
+                      letterSpacing: 1.6,
+                    ),
                   ),
                 ),
               ),

@@ -10,7 +10,19 @@ class DemoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final screenSize = MediaQuery.of(context).size;
 
+    return Scaffold(
+      body: Hero(
+        tag: parent.mainTag,
+        child: Container(
+          width: screenSize.width,
+          height: screenSize.height,
+          color: Colors.greenAccent,
+        ),
+      ),
+    );
   }
 
 }
