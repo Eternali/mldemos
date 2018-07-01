@@ -80,15 +80,16 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
           body: Stack(
             children: <Widget>[
               Positioned(
-                left: 0.0, //calcLeft(screenSize, 0.0),
-                top: calcTop(screenSize, -150.0 + animation.value * 266.0), // -screenSize.height * 1.5 + (animation.value * screenSize.height),
+                // numbers carefully set to minimize jitter when animation resets
+                left: calcLeft(screenSize, -150.0 + animation.value * 266.0),
+                top: calcTop(screenSize, -150.0 + animation.value * 266.0),
                 width: screenSize.width * 4,
                 height: screenSize.height * 4,
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+                      begin: FractionalOffset(0.0, 0.0),
+                      end: FractionalOffset(1.0, 1.0),
                       stops: [0.0, 0.33, 0.66, 1.0],
                       colors: [
                         Color(0xFF2C5364),
