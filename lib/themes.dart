@@ -8,11 +8,27 @@ final Map<String, ThemeData> themes = {
 final ThemeData DarkTheme = ThemeData.dark().copyWith(
   primaryColor: MLDemosColors.teal[400],
   accentColor: MLDemosColors.grey[400],
+  textTheme: ThemeData.dark().textTheme.copyWith(
+    title: ThemeData.dark().textTheme.title.copyWith(
+      fontFamily: 'PT Mono',
+      fontWeight: FontWeight.w700,
+      color: Colors.white70,
+      letterSpacing: 3.0,
+    ),
+  ),
 );
 
 final ThemeData LightTheme = ThemeData.light().copyWith(
   primaryColor: MLDemosColors.teal[400],
   accentColor: MLDemosColors.grey[400],
+  textTheme: ThemeData.light().textTheme.copyWith(
+    title: ThemeData.light().textTheme.title.copyWith(
+      fontFamily: 'PT Mono',
+      fontWeight: FontWeight.w700,
+      color: Colors.white70,
+      letterSpacing: 3.0,
+    ),
+  ),
 );
 
 class MLDemosColors {
@@ -42,3 +58,10 @@ class MLDemosColors {
   };
 }
 
+class ThemeUtils {
+
+  static Color rightColor(Color background) => background.computeLuminance() >= 0.5
+    ? Colors.black87
+    : Colors.white70;
+
+}

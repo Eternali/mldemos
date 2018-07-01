@@ -3,6 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:mldemos/keys.dart';
 import 'package:mldemos/localizations.dart';
+import 'package:mldemos/themes.dart';
 import 'package:mldemos/containers/active_activity.dart';
 import 'package:mldemos/models/models.dart';
 
@@ -102,7 +103,7 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
                 ),
               ),
               StaggeredGridView.count(
-                padding: EdgeInsets.only(top: 68.0),
+                padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 42.0),
                 primary: false,
                 crossAxisCount: 3,
                 children: buttonIdxs.map((b) => [
@@ -128,12 +129,7 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
                           child: Text(
                             (widget.title ?? locales.appTitle).toUpperCase(),
                             textAlign: TextAlign.center,
-                            style: theme.textTheme.title.copyWith(
-                              fontFamily: 'PT Mono',
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white70,
-                              letterSpacing: 3.0,
-                            ),
+                            style: theme.textTheme.title.copyWith(color: ThemeUtils.rightColor(Color(0xFF203A43))),
                           ),
                         ),
                       ],
@@ -142,7 +138,7 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         PopupMenuButton<MenuChoice>(
-                          icon: Icon(Icons.scatter_plot, color: Colors.white70),
+                          icon: Icon(Icons.scatter_plot, color: ThemeUtils.rightColor(Color(0xFF203A43))),
                           onSelected: (MenuChoice choice) {
                             Navigator.of(context).pushNamed(choice.route);
                           },

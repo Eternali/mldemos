@@ -3,13 +3,18 @@ import 'package:redux/redux.dart';
 
 import 'package:mldemos/models/models.dart';
 import 'package:mldemos/presentation/demo_button.dart';
-import 'package:mldemos/presentation/demo_screen.dart';
+import 'package:mldemos/presentation/painter.dart';
 
 final Map<String, Demo> demos = {
   'digits': Demo(
     name: 'digits',
     route: '/digits_demo',
     color: Colors.amber,
+    screen: Column(
+      children: <Widget>[
+        Painter(),
+      ],
+    ),
   ),
   'rnn': Demo(
     name: 'rnn',
@@ -34,7 +39,7 @@ class Demo {
   String desc;
   Loader load;
   DemoButton button;
-  DemoScreen screen;
+  Widget screen;
 
   String get mainTag => route + name;
 
@@ -49,7 +54,7 @@ class Demo {
     this.screen,
   }) {
     button ??= DemoButton(this);
-    screen ??= DemoScreen(this);
+    screen ??= Container();
   }
 
 }
