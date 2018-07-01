@@ -37,7 +37,7 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: Duration(seconds: 5), vsync: this);
+    _controller = AnimationController(duration: Duration(seconds: 20), vsync: this);
     animation = CurvedAnimation(parent: _controller, curve: Curves.linear)
       ..addListener(() {
         setState(() {  });
@@ -58,11 +58,11 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
   }
 
   double calcLeft(Size size, double percent, [ double scale = 4.0 ]) {
-    final double zero = -(size.width * scale / 2.0) + (size.width * scale / 4.0);
+    final double zero = -(size.width * scale / 2.0) + (size.width / 2.0);
     return zero + (size.width * percent / 100.0);
   }
   double calcTop(Size size, double percent, [ double scale = 4.0 ]) {
-    final double zero = -(size.height * scale / 2.0) + (size.height * scale / 4.0);
+    final double zero = -(size.height * scale / 2.0) + (size.height / 2.0);
     return zero + (size.height * percent / 100.0);
   }
 
@@ -80,15 +80,15 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
           body: Stack(
             children: <Widget>[
               Positioned(
-                left: calcLeft(screenSize, 100.0 - animation.value * 85.0),
-                top: calcTop(screenSize, animation.value * 100.0), // -screenSize.height * 1.5 + (animation.value * screenSize.height),
+                left: 0.0, //calcLeft(screenSize, 0.0),
+                top: calcTop(screenSize, -150.0 + animation.value * 266.0), // -screenSize.height * 1.5 + (animation.value * screenSize.height),
                 width: screenSize.width * 4,
                 height: screenSize.height * 4,
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
                       stops: [0.0, 0.33, 0.66, 1.0],
                       colors: [
                         Color(0xFF2C5364),
