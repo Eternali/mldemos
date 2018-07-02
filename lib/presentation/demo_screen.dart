@@ -14,9 +14,9 @@ class DemoScreen extends StatelessWidget {
     final theme = Theme.of(context);
     final screenSize = MediaQuery.of(context).size;
 
+    // Wrap Scaffold with Container to add a solid backdrop should its background be semi-transparent
     return Hero(
       tag: parent.mainTag,
-      // Wrap Scaffold with Container to add a solid backdrop should its background be semi-transparent
       child: Container(
         color: Colors.white,
         child: Scaffold(

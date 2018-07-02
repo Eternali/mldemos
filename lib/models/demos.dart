@@ -12,7 +12,12 @@ final Map<String, Demo> demos = {
     color: Colors.amber,
     screen: Column(
       children: <Widget>[
-        Painter(),
+        Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0)
+          ),
+          child: Painter(),
+        ),
       ],
     ),
   ),
