@@ -10,6 +10,8 @@ class MLDemosLocalizations {
   }
 
   String get appTitle => 'MLDemos';
+  String get description => 'Description';
+  String get instructions => 'Instructions';
   String get noText => '<Oops, there\'s nothing here!>';
 
 }

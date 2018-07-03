@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 
+import 'package:mldemos/localizations.dart';
 import 'package:mldemos/models/models.dart';
 import 'package:mldemos/presentation/demo_button.dart';
 import 'package:mldemos/presentation/painter.dart';
@@ -12,24 +13,30 @@ final Map<String, Demo> demos = {
     color: Colors.amber,
     desc: 'Desc',
     instructions: Text('instr'),
-    builder: (Demo self) => (BuildContext context) => Column(
-      children: <Widget>[
-        ExpansionTile(
-          title: Text(
-            self.desc ?? ''
+    builder: (Demo self) => (BuildContext context) {
+      final locales = MLDemosLocalizations.of(context);
+      return Column(
+        children: <Widget>[
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0)
+            ),
+            child: Painter(),
           ),
-          children: <Widget>[
-            self.instructions
-          ],
-        ),
-        Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              RawMaterialButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0)
+                ),
+                onPressed: () {},
+              )
+            ],
           ),
-          child: Painter(),
-        ),
-      ],
-    )
+        ],
+      );
+    }
   ),
   'rnn': Demo(
     name: 'rnn',
