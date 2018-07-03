@@ -10,8 +10,18 @@ final Map<String, Demo> demos = {
     name: 'digits',
     route: '/digits_demo',
     color: Colors.amber,
-    screen: Column(
+    desc: 'Desc',
+    instructions: Text('instr'),
+    builder: (Demo self) => (BuildContext context) => Column(
       children: <Widget>[
+        ExpansionTile(
+          title: Text(
+            self.desc ?? ''
+          ),
+          children: <Widget>[
+            self.instructions
+          ],
+        ),
         Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18.0)
@@ -19,7 +29,7 @@ final Map<String, Demo> demos = {
           child: Painter(),
         ),
       ],
-    ),
+    )
   ),
   'rnn': Demo(
     name: 'rnn',
@@ -34,17 +44,19 @@ final Map<String, Demo> demos = {
 };
 
 typedef void Loader(Store<AppState> store);
+typedef WidgetBuilder ScreenBuilder(Demo self);
 
 class Demo {
 
-  String name;
-  String route;
-  Color color;
-  Image img;
-  String desc;
+  final String name;
+  final String route;
+  final Color color;
+  final Image img;
+  final String desc;
+  final Widget instructions;
   Loader load;
   DemoButton button;
-  Widget screen;
+  WidgetBuilder builder;
 
   String get mainTag => route + name;
 
@@ -54,12 +66,13 @@ class Demo {
     this.color,
     this.img,
     this.desc,
+    this.instructions,
     this.load,
     this.button,
-    this.screen,
+    ScreenBuilder builder,
   }) {
     button ??= DemoButton(this);
-    screen ??= Container();
+    this.builder = builder == null ? (context) => Container() : builder(this);
   }
 
 }

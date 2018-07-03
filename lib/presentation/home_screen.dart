@@ -38,7 +38,7 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: Duration(seconds: 20), vsync: this);
+    _controller = AnimationController(duration: Duration(seconds: 18), vsync: this);
     animation = CurvedAnimation(parent: _controller, curve: Curves.linear)
       ..addListener(() {
         setState(() {  });

@@ -16,7 +16,6 @@ class PainterState extends State<Painter> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.width,
       child: GestureDetector(
         onPanUpdate: (DragUpdateDetails details) {
@@ -47,9 +46,9 @@ class Painting extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
-      ..color = Colors.blue
+      ..color = Colors.black
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = 10.0;
+      ..strokeWidth = 36.0;
 
     for (int i = 0; i < points.length - 1; i++) {
       if (points[i] != null && points[i + 1] != null) {

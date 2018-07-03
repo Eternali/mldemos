@@ -33,7 +33,7 @@ class DemoScreen extends StatelessWidget {
               color: ThemeUtils.rightColor(parent.color),
             ),
           ),
-          body: parent.screen,
+          body: parent.builder(context),
         ),
       ),
     );
