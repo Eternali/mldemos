@@ -13,6 +13,7 @@ class MLDemosLocalizations {
   String get description => 'Description';
   String get instructions => 'Instructions';
   String get noText => '<Oops, there\'s nothing here!>';
+  String get predict => 'Predict';
 
 }
 

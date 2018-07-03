@@ -5,6 +5,7 @@ import 'package:mldemos/localizations.dart';
 import 'package:mldemos/models/models.dart';
 import 'package:mldemos/presentation/demo_button.dart';
 import 'package:mldemos/presentation/painter.dart';
+import 'package:mldemos/presentation/predict_button.dart';
 
 final Map<String, Demo> demos = {
   'digits': Demo(
@@ -23,16 +24,14 @@ final Map<String, Demo> demos = {
             ),
             child: Painter(),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              RawMaterialButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0)
-                ),
-                onPressed: () {},
-              )
-            ],
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                PredictButton(),
+              ],
+            ),
           ),
         ],
       );
