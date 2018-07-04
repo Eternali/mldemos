@@ -35,7 +35,7 @@ class DemoScreen extends StatelessWidget {
               color: ThemeUtils.rightColor(parent.color),
             ),
           ),
-          body: Column(
+          body: ListView(
             children: <Widget>[
               parent.desc != null ? Container(
                 margin: EdgeInsets.only(top: 4.0),

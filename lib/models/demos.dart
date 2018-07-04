@@ -26,12 +26,7 @@ final Map<String, Demo> demos = {
           ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 12.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                PredictButton(),
-              ],
-            ),
+            child: PredictButton(color: self.color, onPressed: () {  }),
           ),
         ],
       );

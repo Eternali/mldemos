@@ -4,6 +4,11 @@ import 'package:mldemos/localizations.dart';
 
 class PredictButton extends StatefulWidget {
 
+  final Color color;
+  final VoidCallback onPressed;
+
+  PredictButton({ this.color, this.onPressed });
+
   @override
   State<PredictButton> createState() => _PredictButtonState();
 
@@ -34,32 +39,135 @@ class _PredictButtonState extends State<PredictButton> with SingleTickerProvider
 
     return Stack(
       children: <Widget>[
-        Flex(
-          direction: Axis.horizontal,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            GestureDetector(
-              onTap: () {  },
+            Flexible(
               child: Container(
+                // padding: EdgeInsets.only(
+                //   top: 8.0,
+                //   right: 8.0,
+                //   bottom: 8.0,
+                //   left: 12.0,
+                // ),
                 decoration: BoxDecoration(
-                  
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(18.0),
+                    bottomLeft: Radius.circular(18.0)
+                  ),
+                ),
+                child: TextField(
+                  maxLines: 1,
+                  maxLength: 1,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.title.copyWith(
+                    color: Colors.black,
+                    fontSize: 16.0
+                  ),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                  ),
                 ),
               ),
-            )
-            OutlineButton(
-              onPressed: () {  },
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0)
-              ),
-              child: Row(
-                children: <Widget>[
-                  Text(locales.predict),
-                  Container()
-                  Text('8')
-                ],
+            ),
+            Flexible(
+              child: GestureDetector(
+                onTap: widget.onPressed,
+                child: Container(
+                  padding: EdgeInsets.only(
+                    top: 8.0,
+                    right: 12.0,
+                    bottom: 8.0,
+                    left: 8.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(18.0),
+                      bottomRight: Radius.circular(18.0)
+                    ),
+                  ),
+                  child: Text(
+                    locales.send.toUpperCase(),
+                    style: theme.textTheme.title.copyWith(
+                      color: Colors.black,
+                      fontSize: 16.0
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
         ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: <Widget>[
+        //     GestureDetector(
+        //       onTap: widget.onPressed,
+        //       child: Container(
+        //         padding: EdgeInsets.only(
+        //           top: 8.0,
+        //           right: 8.0,
+        //           bottom: 8.0,
+        //           left: 12.0,
+        //         ),
+        //         decoration: BoxDecoration(
+        //           color: Colors.transparent,
+        //           border: Border.all(
+        //             color: Colors.white,
+        //             width: 2.0,
+        //           ),
+        //           borderRadius: BorderRadius.only(
+        //             topLeft: Radius.circular(18.0),
+        //             bottomLeft: Radius.circular(18.0)
+        //           ),
+        //         ),
+        //         child: Text(
+        //           locales.predict.toUpperCase(),
+        //           style: theme.textTheme.title.copyWith(
+        //             color: Colors.black,
+        //             fontSize: 16.0
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //     Container(
+        //       padding: EdgeInsets.only(
+        //         top: 8.0,
+        //         right: 12.0,
+        //         bottom: 8.0,
+        //         left: 8.0,
+        //       ),
+        //       decoration: BoxDecoration(
+        //         color: Colors.white,
+        //         border: Border.all(
+        //           color: Colors.white,
+        //           width: 2.0,
+        //         ),
+        //         borderRadius: BorderRadius.only(
+        //           topRight: Radius.circular(18.0),
+        //           bottomRight: Radius.circular(18.0)
+        //         ),
+        //       ),
+        //       child: Text(
+        //         '8',
+        //         style: theme.textTheme.title.copyWith(
+        //           color: Colors.black,
+        //           fontSize: 16.0
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
       ],
     );
   }
