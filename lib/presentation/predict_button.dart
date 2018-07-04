@@ -44,12 +44,12 @@ class _PredictButtonState extends State<PredictButton> with SingleTickerProvider
           children: <Widget>[
             Flexible(
               child: Container(
-                // padding: EdgeInsets.only(
-                //   top: 8.0,
-                //   right: 8.0,
-                //   bottom: 8.0,
-                //   left: 12.0,
-                // ),
+                padding: EdgeInsets.only(
+                  top: 8.0,
+                  right: 8.0,
+                  bottom: 8.0,
+                  left: 12.0,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(
@@ -62,8 +62,7 @@ class _PredictButtonState extends State<PredictButton> with SingleTickerProvider
                   ),
                 ),
                 child: TextField(
-                  maxLines: 1,
-                  maxLength: 1,
+                  // maxLength: 1,
                   textAlign: TextAlign.center,
                   style: theme.textTheme.title.copyWith(
                     color: Colors.black,
