@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mldemos/localizations.dart';
 import 'package:mldemos/themes.dart';
 import 'package:mldemos/models/models.dart';
+import 'package:mldemos/presentation/dense_expansion.dart';
 
 class DemoScreen extends StatelessWidget {
 
@@ -14,7 +15,6 @@ class DemoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final locales = MLDemosLocalizations.of(context);
     final theme = Theme.of(context);
-    final screenSize = MediaQuery.of(context).size;
 
     // Wrap Scaffold with Container to add a solid backdrop should its background be semi-transparent
     return Hero(
@@ -39,7 +39,7 @@ class DemoScreen extends StatelessWidget {
             children: <Widget>[
               parent.desc != null ? Container(
                 margin: EdgeInsets.only(top: 4.0),
-                child: ExpansionTile(
+                child: DenseExpansion(
                   initiallyExpanded: true,
                   title: Text(
                     locales.description
@@ -56,7 +56,7 @@ class DemoScreen extends StatelessWidget {
               ) : null,
               parent.instructions != null ? Container(
                 margin: EdgeInsets.only(bottom: 8.0),
-                child: ExpansionTile(
+                child: DenseExpansion(
                   initiallyExpanded: true,
                   title: Text(
                     locales.instructions

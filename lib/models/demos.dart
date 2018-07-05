@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 
@@ -26,7 +28,7 @@ final Map<String, Demo> demos = {
           ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 12.0),
-            child: PredictButton(color: self.color, onPressed: () {  }),
+            child: PredictButton(color: self.color, onPressed: () { return Future.value(2.0); }),
           ),
         ],
       );

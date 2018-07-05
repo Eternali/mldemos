@@ -5,7 +5,6 @@ import 'package:redux/redux.dart';
 import 'package:mldemos/themes.dart';
 import 'package:mldemos/models/models.dart';
 
-
 class ActiveActivity extends StatelessWidget {
   final ViewModelBuilder<String> builder;
 

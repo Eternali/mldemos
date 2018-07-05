@@ -57,7 +57,7 @@ class MLDemos extends StatelessWidget {
         ))),
         // Have to add this because builder in active_activity is not being applied
         builder: (context, child) => Theme(
-          data: themes[store.state.theme] ?? themes['light'].theme,
+          data: themes[store.state.theme]?.theme ?? themes['light'].theme,
           child: child,
         ),
       ),
