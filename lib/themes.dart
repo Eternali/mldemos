@@ -1,34 +1,47 @@
 import 'package:flutter/material.dart';
 
-final Map<String, ThemeData> themes = {
+class MLTheme {
+  ThemeData theme;
+  double borderRadius;
+
+  MLTheme({ this.theme, this.borderRadius });
+}
+
+final Map<String, MLTheme> themes = {
   'dark': DarkTheme,
   'light': LightTheme,
 };
 
-final ThemeData DarkTheme = ThemeData.dark().copyWith(
-  primaryColor: MLDemosColors.teal[400],
-  accentColor: MLDemosColors.grey[400],
-  textTheme: ThemeData.dark().textTheme.copyWith(
-    title: ThemeData.dark().textTheme.title.copyWith(
-      fontFamily: 'PT Mono',
-      fontWeight: FontWeight.w700,
-      color: Colors.white70,
-      letterSpacing: 3.0,
+final DarkTheme = MLTheme(
+  theme: ThemeData.dark().copyWith(
+    primaryColor: MLDemosColors.teal[400],
+    accentColor: MLDemosColors.grey[400],
+    textTheme: ThemeData.dark().textTheme.copyWith(
+      title: ThemeData.dark().textTheme.title.copyWith(
+        fontFamily: 'PT Mono',
+        fontWeight: FontWeight.w700,
+        color: Colors.white70,
+        letterSpacing: 3.0,
+      ),
     ),
   ),
+  borderRadius: 18.0,
 );
 
-final ThemeData LightTheme = ThemeData.light().copyWith(
-  primaryColor: MLDemosColors.teal[400],
-  accentColor: MLDemosColors.grey[400],
-  textTheme: ThemeData.light().textTheme.copyWith(
-    title: ThemeData.light().textTheme.title.copyWith(
-      fontFamily: 'PT Mono',
-      fontWeight: FontWeight.w700,
-      color: Colors.white70,
-      letterSpacing: 3.0,
+final LightTheme = MLTheme(
+  theme: ThemeData.light().copyWith(
+    primaryColor: MLDemosColors.teal[400],
+    accentColor: MLDemosColors.grey[400],
+    textTheme: ThemeData.light().textTheme.copyWith(
+      title: ThemeData.light().textTheme.title.copyWith(
+        fontFamily: 'PT Mono',
+        fontWeight: FontWeight.w700,
+        color: Colors.white70,
+        letterSpacing: 3.0,
+      ),
     ),
   ),
+  borderRadius: 18.0,
 );
 
 class MLDemosColors {

@@ -18,7 +18,7 @@ class ActiveActivity extends StatelessWidget {
       converter: ActivityVM.fromStore,
       // see comment in main
       builder: (BuildContext context, ActivityVM vm) => Theme(
-        data: vm.theme ?? themes['light'],
+        data: vm.theme ?? themes['light'].theme,
         child: builder(context, vm.activeRoute),
       ),
     );
