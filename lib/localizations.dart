@@ -11,6 +11,8 @@ class MLDemosLocalizations {
 
   String get appTitle => 'MLDemos';
   String get description => 'Description';
+  String get getItWrong => 'Did I get it wrong?';
+  String get tellRightAnswer => 'Tell me the right answer so I can learn.';
   String get instructions => 'Instructions';
   String get noText => '<Oops, there\'s nothing here!>';
   String get predict => 'Predict';
