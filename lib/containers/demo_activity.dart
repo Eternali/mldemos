@@ -5,11 +5,11 @@ import 'package:redux/redux.dart';
 import 'package:mldemos/themes.dart';
 import 'package:mldemos/models/models.dart';
 
-class ActiveActivity extends StatelessWidget {
+class DemoActivity extends StatelessWidget {
 
   final ViewModelBuilder<String> builder;
 
-  ActiveActivity({ Key key, @required this.builder }) : super(key: key);
+  DemoActivity({ Key key, @required this.builder }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +23,17 @@ class ActiveActivity extends StatelessWidget {
       ),
     );
   }
+
 }
 
-class ActivityVM {
+class DemoVM {
   final String activeRoute;
   final String theme;
 
-  ActivityVM({ @required this.activeRoute, @required this.theme });
+  DemoVM({ @required this.activeRoute, @required this.theme });
 
-  static ActivityVM fromStore(Store<AppState> store) => ActivityVM(
+  static DemoVM fromStore(Store<AppState> store) => ActivityVM(
     activeRoute: store.state.activeRoute,
     theme: store.state.theme,
   );
-
 }

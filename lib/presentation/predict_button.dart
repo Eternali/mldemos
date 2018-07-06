@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -6,6 +7,7 @@ import 'package:mldemos/themes.dart';
 import 'package:mldemos/localizations.dart';
 import 'package:mldemos/containers/themed_widget.dart';
 import 'package:mldemos/presentation/dense_expansion.dart';
+import 'package:mldemos/presentation/yay_ray.dart';
 
 typedef FutureCallback = Future Function();
 
@@ -33,11 +35,13 @@ class _PredictButtonState extends State<PredictButton> with TickerProviderStateM
   Animation<double> wrongRevealAnimation;
   Animation<double> sendRevealAnimation;
 
+  double get yayHeightFactor => yayAnimation == null ? 0.0 : yayAnimation.value > 0.5 ? 1.0 - yayAnimation.value : yayAnimation.value;
+
   @override
   void initState() {
     super.initState();
     _predictController = AnimationController(duration: Duration(milliseconds: widget.possibleAnswers.length * 300), vsync: this);
-    _postController = AnimationController(duration: Duration(milliseconds: 2000), vsync: this);
+    _postController = AnimationController(duration: Duration(milliseconds: 3500), vsync: this);
     _sendRevealController = AnimationController(duration: Duration(milliseconds: 600), vsync: this);
 
     predictLoadingAnimation = Tween<int>(begin: 0, end: widget.possibleAnswers.length - 1)
@@ -56,7 +60,7 @@ class _PredictButtonState extends State<PredictButton> with TickerProviderStateM
     wrongRevealAnimation = Tween<double>(begin: 0.0, end: 1.0)
       .animate(CurvedAnimation(
         parent: _postController,
-        curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn),
+        curve: Interval(0.85, 1.0, curve: Curves.fastOutSlowIn),
       ))
       ..addListener(() {
         setState(() {  });
@@ -266,16 +270,83 @@ class _PredictButtonState extends State<PredictButton> with TickerProviderStateM
                             bottomRight: Radius.circular(mltheme.borderRadius)
                           ),
                         ),
-                        child: Text(
-                          predictLoadingAnimation.value.toString(),  // widget.possibleAnswers[predictLoadingAnimation.value ?? 0],
-                          style: theme.textTheme.title.copyWith(
-                            color: Colors.black,
-                            fontSize: 16.0
+                        child: AnimatedBuilder(
+                          animation: _predictController,
+                          builder: (BuildContext context, Widget child) => Text(
+                            '0', // widget.possibleAnswers[predictLoadingAnimation.value ?? 0],
+                            style: theme.textTheme.title.copyWith(
+                              color: Colors.black,
+                              fontSize: 16.0
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ],
+                ),
+                YayRay(
+                  controller: yayAnimation,
+                  start: 0.0,
+                  end: 0.65,
+                  left: 248.0,
+                  top: 6.0,
+                  rotation: pi,
+                ),
+                YayRay(
+                  controller: yayAnimation,
+                  start: 0.05,
+                  end: 0.7,
+                  left: 260.0,
+                  top: 12.0,
+                  rotation: pi * 1.25,
+                ),
+                YayRay(
+                  controller: yayAnimation,
+                  start: 0.1,
+                  end: 0.75,
+                  left: 262.0,
+                  top: 24.0,
+                  rotation: pi * 1.5,
+                ),
+                YayRay(
+                  controller: yayAnimation,
+                  start: 0.15,
+                  end: 0.8,
+                  left: 256.0,
+                  top: 33.0,
+                  rotation: pi * 1.75,
+                ),
+                YayRay(
+                  controller: yayAnimation,
+                  start: 0.2,
+                  end: 0.85,
+                  left: 244.0,
+                  top: 34.0,
+                  rotation: 0.0,
+                ),
+                YayRay(
+                  controller: yayAnimation,
+                  start: 0.25,
+                  end: 0.9,
+                  left: 233.0,
+                  top: 30.0,
+                  rotation: pi * 0.25,
+                ),
+                YayRay(
+                  controller: yayAnimation,
+                  start: 0.3,
+                  end: 0.95,
+                  left: 230.0,
+                  top: 20.0,
+                  rotation: pi * 0.5,
+                ),
+                YayRay(
+                  controller: yayAnimation,
+                  start: 0.35,
+                  end: 1.0,
+                  left: 236.0,
+                  top: 9.0,
+                  rotation: pi * 0.75,
                 ),
               ],
             ),

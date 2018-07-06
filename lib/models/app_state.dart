@@ -6,10 +6,13 @@ class AppState {
   final bool isLoading;
   final String theme;
 
+  final dynamic prediction;
+
   AppState({
     this.activeRoute = '/',
     this.isLoading = false,
     this.theme,
+    this.prediction,
   });
 
   factory AppState.loading() => AppState(
@@ -28,7 +31,7 @@ class AppState {
   );
 
   @override
-  int get hashCode => isLoading.hashCode ^ theme.hashCode;
+  int get hashCode => activeRoute.hashCode ^ isLoading.hashCode ^ theme.hashCode ^ theme.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -37,6 +40,7 @@ class AppState {
       runtimeType == other.runtimeType &&
       activeRoute == other.activeRoute &&
       isLoading == other.isLoading &&
-      theme == other.theme;
+      theme == other.theme &&
+      prediction == other.prediction;
 
 }
