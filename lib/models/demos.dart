@@ -28,7 +28,12 @@ final Map<String, Demo> demos = {
           ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 12.0),
-            child: PredictButton(color: self.color, onPressed: () { return Future.value(2.0); }),
+            child: PredictButton(
+              color: self.color,
+              possibleAnswers: '0123456789'.split(''),
+              predict: () { return Future.delayed(Duration(seconds: 3), () => Future.value(2)); },
+              send: () { return Future.value(2.0); },
+            ),
           ),
         ],
       );

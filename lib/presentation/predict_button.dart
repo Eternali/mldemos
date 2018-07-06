@@ -12,9 +12,11 @@ typedef FutureCallback = Future Function();
 class PredictButton extends StatefulWidget {
 
   final Color color;
-  final FutureCallback onPressed;
+  final List<String> possibleAnswers;
+  final FutureCallback predict;
+  final FutureCallback send;
 
-  PredictButton({ this.color, this.onPressed });
+  PredictButton({ this.color, this.possibleAnswers, this.predict, this.send });
 
   @override
   State<PredictButton> createState() => _PredictButtonState();
@@ -24,9 +26,9 @@ class PredictButton extends StatefulWidget {
 class _PredictButtonState extends State<PredictButton> with TickerProviderStateMixin {
 
   AnimationController _predictController;
-  AnimationController _predictedController;
+  AnimationController _postController;
   AnimationController _sendRevealController;
-  Animation<double> predictLoadingAnimation;
+  Animation<int> predictLoadingAnimation;
   Animation<double> yayAnimation;
   Animation<double> wrongRevealAnimation;
   Animation<double> sendRevealAnimation;
@@ -34,11 +36,28 @@ class _PredictButtonState extends State<PredictButton> with TickerProviderStateM
   @override
   void initState() {
     super.initState();
-    _predictController = AnimationController(duration: Duration(milliseconds: 1000), vsync: this);
-    _predictedController = AnimationController(duration: Duration(milliseconds: 800), vsync: this);
+    _predictController = AnimationController(duration: Duration(milliseconds: widget.possibleAnswers.length * 300), vsync: this);
+    _postController = AnimationController(duration: Duration(milliseconds: 2000), vsync: this);
     _sendRevealController = AnimationController(duration: Duration(milliseconds: 600), vsync: this);
 
-    wrongRevealAnimation = CurvedAnimation(parent: _predictedController, curve: Curves.fastOutSlowIn)
+    predictLoadingAnimation = Tween<int>(begin: 0, end: widget.possibleAnswers.length - 1)
+      .animate(_predictController)
+      ..addListener(() {
+        setState(() {  });
+      });
+    yayAnimation = Tween<double>(begin: 0.0, end: 1.0)
+      .animate(CurvedAnimation(
+        parent: _postController,
+        curve: Interval(0.0, 0.6, curve: Curves.easeInOut),
+      ))
+      ..addListener(() {
+        setState(() {  });
+      });
+    wrongRevealAnimation = Tween<double>(begin: 0.0, end: 1.0)
+      .animate(CurvedAnimation(
+        parent: _postController,
+        curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn),
+      ))
       ..addListener(() {
         setState(() {  });
       });
@@ -51,7 +70,7 @@ class _PredictButtonState extends State<PredictButton> with TickerProviderStateM
   @override
   void dispose() {
     _predictController?.dispose();
-    _predictedController?.dispose();
+    _postController?.dispose();
     _sendRevealController?.dispose();
     super.dispose();
   }
@@ -73,10 +92,10 @@ class _PredictButtonState extends State<PredictButton> with TickerProviderStateM
             child: Stack(
               children: <Widget>[
                 Opacity(
-                  opacity: baseAnimation.value,
+                  opacity: wrongRevealAnimation.value,
                   child: Container(
                     padding: EdgeInsets.only(
-                      top: 40.0 * baseAnimation.value,
+                      top: 40.0 * wrongRevealAnimation.value,
                     ),
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -148,7 +167,7 @@ class _PredictButtonState extends State<PredictButton> with TickerProviderStateM
                         Expanded(
                           flex: 12,
                           child: GestureDetector(
-                            onTap: widget.onPressed,
+                            onTap: widget.send,
                             child: Container(
                               alignment: Alignment.center,
                               padding: EdgeInsets.only(
@@ -189,10 +208,12 @@ class _PredictButtonState extends State<PredictButton> with TickerProviderStateM
                       flex: 12,
                       child: GestureDetector(
                         onTap: () {
-                          widget.onPressed()
-                            .then((_) {
-                              if (_baseController.status != AnimationStatus.completed)
-                                _baseController.forward();
+                          _predictController.forward();
+                          widget.predict()
+                            .then((result) {
+                              // _predictController.stop();
+                              if (_postController.status != AnimationStatus.completed)
+                                _postController.forward();
                             });
                         },
                         child: Container(
@@ -246,7 +267,7 @@ class _PredictButtonState extends State<PredictButton> with TickerProviderStateM
                           ),
                         ),
                         child: Text(
-                          '8',
+                          predictLoadingAnimation.value.toString(),  // widget.possibleAnswers[predictLoadingAnimation.value ?? 0],
                           style: theme.textTheme.title.copyWith(
                             color: Colors.black,
                             fontSize: 16.0
