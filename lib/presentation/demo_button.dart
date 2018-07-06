@@ -45,7 +45,7 @@ class DemoButtonState extends State<DemoButton> with SingleTickerProviderStateMi
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 

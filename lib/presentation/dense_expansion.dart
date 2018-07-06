@@ -103,7 +103,7 @@ class _DenseExpansionState extends State<DenseExpansion> with SingleTickerProvid
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 

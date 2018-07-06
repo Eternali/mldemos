@@ -21,16 +21,28 @@ class PredictButton extends StatefulWidget {
 
 }
 
-class _PredictButtonState extends State<PredictButton> with SingleTickerProviderStateMixin {
+class _PredictButtonState extends State<PredictButton> with TickerProviderStateMixin {
 
-  AnimationController _controller;
-  Animation<double> baseAnimation;
+  AnimationController _predictController;
+  AnimationController _predictedController;
+  AnimationController _sendRevealController;
+  Animation<double> predictLoadingAnimation;
+  Animation<double> yayAnimation;
+  Animation<double> wrongRevealAnimation;
+  Animation<double> sendRevealAnimation;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: Duration(milliseconds: 800), vsync: this);
-    baseAnimation = CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn)
+    _predictController = AnimationController(duration: Duration(milliseconds: 1000), vsync: this);
+    _predictedController = AnimationController(duration: Duration(milliseconds: 800), vsync: this);
+    _sendRevealController = AnimationController(duration: Duration(milliseconds: 600), vsync: this);
+
+    wrongRevealAnimation = CurvedAnimation(parent: _predictedController, curve: Curves.fastOutSlowIn)
+      ..addListener(() {
+        setState(() {  });
+      });
+    sendRevealAnimation = CurvedAnimation(parent: _sendRevealController, curve: Curves.fastOutSlowIn)
       ..addListener(() {
         setState(() {  });
       });
@@ -38,7 +50,9 @@ class _PredictButtonState extends State<PredictButton> with SingleTickerProvider
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _predictController?.dispose();
+    _predictedController?.dispose();
+    _sendRevealController?.dispose();
     super.dispose();
   }
 
@@ -72,90 +86,100 @@ class _PredictButtonState extends State<PredictButton> with SingleTickerProvider
                       borderRadius: BorderRadius.all(Radius.circular(mltheme.borderRadius)),
                     ),
                     child: DenseExpansion(
+                      onExpansionChanged: (expanding) {
+                        if (expanding) _sendRevealController.forward();
+                        else _sendRevealController.reverse();
+                      },
                       title: Text(
                         locales.getItWrong,
                       ),
                       children: <Widget>[
-                        Text(
-                          locales.tellRightAnswer
+                        Container(
+                          padding: EdgeInsets.only(bottom: 56.0),
+                          child: Text(
+                            locales.tellRightAnswer
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ),
-                Positioned(
-                  top: 1.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.only(
-                            top: 2.0,
-                            right: 0.0,
-                            bottom: 2.0,
-                            left: 8.0,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(mltheme.borderRadius),
-                              bottomLeft: Radius.circular(mltheme.borderRadius)
-                            ),
-                          ),
-                          child: TextField(
-                            textAlign: TextAlign.center,
-                            style: theme.textTheme.title.copyWith(
-                              color: Colors.black,
-                              fontSize: 16.0
-                            ),
-                            decoration: InputDecoration(
-                              isDense: true,
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 12,
-                        child: GestureDetector(
-                          onTap: widget.onPressed,
+                Opacity(
+                  opacity: sendRevealAnimation.value,
+                  child: Container(
+                    margin: EdgeInsets.only(top: 130.0 * sendRevealAnimation.value),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 3,
                           child: Container(
                             alignment: Alignment.center,
                             padding: EdgeInsets.only(
-                              top: 10.0,
-                              right: 17.0,
-                              bottom: 10.0,
-                              left: 17.0,
+                              top: 2.0,
+                              right: 0.0,
+                              bottom: 2.0,
+                              left: 8.0,
                             ),
                             decoration: BoxDecoration(
-                              color: Colors.transparent,
+                              color: Colors.white,
                               border: Border.all(
                                 color: Colors.white,
                                 width: 2.0,
                               ),
                               borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(mltheme.borderRadius),
-                                bottomRight: Radius.circular(mltheme.borderRadius)
+                                topLeft: Radius.circular(mltheme.borderRadius),
+                                bottomLeft: Radius.circular(mltheme.borderRadius)
                               ),
                             ),
-                            child: Text(
-                              locales.send.toUpperCase(),
+                            child: TextField(
+                              textAlign: TextAlign.center,
                               style: theme.textTheme.title.copyWith(
                                 color: Colors.black,
                                 fontSize: 16.0
                               ),
+                              decoration: InputDecoration(
+                                isDense: true,
+                                border: InputBorder.none,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          flex: 12,
+                          child: GestureDetector(
+                            onTap: widget.onPressed,
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.only(
+                                top: 10.0,
+                                right: 17.0,
+                                bottom: 10.0,
+                                left: 17.0,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(mltheme.borderRadius),
+                                  bottomRight: Radius.circular(mltheme.borderRadius)
+                                ),
+                              ),
+                              child: Text(
+                                locales.send.toUpperCase(),
+                                style: theme.textTheme.title.copyWith(
+                                  color: Colors.black,
+                                  fontSize: 16.0
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Row(
@@ -167,8 +191,8 @@ class _PredictButtonState extends State<PredictButton> with SingleTickerProvider
                         onTap: () {
                           widget.onPressed()
                             .then((_) {
-                              if (_controller.status != AnimationStatus.completed)
-                                _controller.forward();
+                              if (_baseController.status != AnimationStatus.completed)
+                                _baseController.forward();
                             });
                         },
                         child: Container(
