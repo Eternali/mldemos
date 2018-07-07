@@ -4,13 +4,14 @@ class AppState {
 
   final String activeRoute;
   final bool isLoading;
+  final bool isPredicting;
   final String theme;
-
   final dynamic prediction;
 
   AppState({
     this.activeRoute = '/',
     this.isLoading = false,
+    this.isPredicting = false,
     this.theme,
     this.prediction,
   });
@@ -23,15 +24,19 @@ class AppState {
   AppState copyWith({
     String activeRoute,
     bool isLoading,
+    bool isPredicting,
     String theme,
+    dynamic prediction,
   }) => AppState(
     activeRoute: activeRoute ?? this.activeRoute,
     isLoading: isLoading ?? this.isLoading,
+    isPredicting: isPredicting ?? this.isPredicting,
     theme: theme ?? this.theme,
+    prediction: prediction ?? this.prediction,
   );
 
   @override
-  int get hashCode => activeRoute.hashCode ^ isLoading.hashCode ^ theme.hashCode ^ theme.hashCode;
+  int get hashCode => activeRoute.hashCode ^ isLoading.hashCode ^ isPredicting.hashCode ^ theme.hashCode ^ prediction.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -40,6 +45,7 @@ class AppState {
       runtimeType == other.runtimeType &&
       activeRoute == other.activeRoute &&
       isLoading == other.isLoading &&
+      isPredicting == other.isPredicting &&
       theme == other.theme &&
       prediction == other.prediction;
 

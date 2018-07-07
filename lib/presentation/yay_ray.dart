@@ -29,7 +29,7 @@ class YayRay extends StatelessWidget {
       left: left,
       top: top,
       child: Container(
-        color: Colors.yellow[300],
+        color: Colors.black,
         width: 4.0,
         height: 48.0 * heightFactor,
         transform: Matrix4.rotationZ(rotation)..translate(0.0, delayed.value * 20.0, 0.0),
