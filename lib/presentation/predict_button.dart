@@ -35,8 +35,6 @@ class _PredictButtonState extends State<PredictButton> with TickerProviderStateM
   Animation<double> wrongRevealAnimation;
   Animation<double> sendRevealAnimation;
 
-  double get yayHeightFactor => yayAnimation == null ? 0.0 : yayAnimation.value > 0.5 ? 1.0 - yayAnimation.value : yayAnimation.value;
-
   @override
   void initState() {
     super.initState();
@@ -84,6 +82,24 @@ class _PredictButtonState extends State<PredictButton> with TickerProviderStateM
     final locales = MLDemosLocalizations.of(context);
     final theme = Theme.of(context);
 
+    final wrongExpansion = DenseExpansion(
+      onExpansionChanged: (expanding) {
+        if (expanding) _sendRevealController.forward();
+        else _sendRevealController.reverse();
+      },
+      title: Text(
+        locales.getItWrong,
+      ),
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.only(bottom: 56.0),
+          child: Text(
+            locales.tellRightAnswer
+          ),
+        ),
+      ],
+    );
+
     return ThemedWidget(
       builder: (BuildContext context, MLTheme mltheme) => Row(
         children: <Widget>[
@@ -108,23 +124,7 @@ class _PredictButtonState extends State<PredictButton> with TickerProviderStateM
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(mltheme.borderRadius)),
                     ),
-                    child: DenseExpansion(
-                      onExpansionChanged: (expanding) {
-                        if (expanding) _sendRevealController.forward();
-                        else _sendRevealController.reverse();
-                      },
-                      title: Text(
-                        locales.getItWrong,
-                      ),
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.only(bottom: 56.0),
-                          child: Text(
-                            locales.tellRightAnswer
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: wrongExpansion,
                   ),
                 ),
                 Opacity(
@@ -212,12 +212,16 @@ class _PredictButtonState extends State<PredictButton> with TickerProviderStateM
                       flex: 12,
                       child: GestureDetector(
                         onTap: () {
+                          if (_postController.status == AnimationStatus.completed) _postController.reverse();
+                          if (_sendRevealController.status == AnimationStatus.completed) _sendRevealController.reverse();
                           _predictController.forward();
                           widget.predict()
                             .then((result) {
                               // _predictController.stop();
-                              if (_postController.status != AnimationStatus.completed)
+                              if (_postController.status != AnimationStatus.completed) {
+                                _postController.reset();
                                 _postController.forward();
+                              }
                             });
                         },
                         child: Container(

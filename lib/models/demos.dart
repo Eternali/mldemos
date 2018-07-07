@@ -31,7 +31,7 @@ final Map<String, Demo> demos = {
             child: PredictButton(
               color: self.color,
               possibleAnswers: '0123456789'.split(''),
-              predict: () { return Future.delayed(Duration(seconds: 1), () => Future.value(2)); },
+              predict: () { return Future.delayed(Duration(milliseconds: 500), () => Future.value(2)); },
               send: () { return Future.value(2.0); },
             ),
           ),

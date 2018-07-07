@@ -7,33 +7,28 @@ import 'package:mldemos/models/models.dart';
 
 class DemoActivity extends StatelessWidget {
 
-  final ViewModelBuilder<String> builder;
+  final ViewModelBuilder<DemoVM> builder;
 
   DemoActivity({ Key key, @required this.builder }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, ActivityVM>(
+    return StoreConnector<AppState, DemoVM>(
       distinct: true,
-      converter: ActivityVM.fromStore,
+      converter: DemoVM.fromStore,
       // see comment in main
-      builder: (BuildContext context, ActivityVM vm) => Theme(
-        data: vm.theme ?? themes['light'].theme,
-        child: builder(context, vm.activeRoute),
-      ),
+      builder: builder,
     );
   }
 
 }
 
 class DemoVM {
-  final String activeRoute;
-  final String theme;
+  final dynamic prediction;
 
-  DemoVM({ @required this.activeRoute, @required this.theme });
+  DemoVM({ @required this.prediction });
 
-  static DemoVM fromStore(Store<AppState> store) => ActivityVM(
-    activeRoute: store.state.activeRoute,
-    theme: store.state.theme,
+  static DemoVM fromStore(Store<AppState> store) => DemoVM(
+    prediction: store.state.prediction,
   );
 }
