@@ -25,7 +25,7 @@ class DenseExpansion extends StatefulWidget {
   /// Creates a single-line [ListTile] with a trailing button that expands or collapses
   /// the tile to reveal or hide the [children]. The [initiallyExpanded] property must
   /// be non-null.
-  const DenseExpansion({
+  DenseExpansion({
     Key key,
     this.leading,
     @required this.title,
@@ -33,8 +33,8 @@ class DenseExpansion extends StatefulWidget {
     this.onExpansionChanged,
     this.children = const <Widget>[],
     this.trailing,
-    this.initiallyExpanded = false,
-  }) : assert(initiallyExpanded != null),
+    this.isExpanded = false,
+  }) : assert(isExpanded != null),
        super(key: key);
 
   /// A widget to display before the title.
@@ -66,7 +66,7 @@ class DenseExpansion extends StatefulWidget {
   final Widget trailing;
 
   /// Specifies if the list tile is initially expanded (true) or collapsed (false, the default).
-  final bool initiallyExpanded;
+  bool isExpanded;
 
   @override
   State<DenseExpansion> createState() =>  _DenseExpansionState();
@@ -82,7 +82,7 @@ class _DenseExpansionState extends State<DenseExpansion> with SingleTickerProvid
   ColorTween _backgroundColor;
   Animation<double> _iconTurns;
 
-  bool _isExpanded = false;
+  // bool _isExpanded = false;
 
   @override
   void initState() {
@@ -96,8 +96,8 @@ class _DenseExpansionState extends State<DenseExpansion> with SingleTickerProvid
     _iconTurns =  Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
     _backgroundColor =  ColorTween();
 
-    _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
-    if (_isExpanded)
+    // _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.isExpanded;
+    if (widget.isExpanded)
       _controller.value = 1.0;
   }
 
@@ -109,8 +109,8 @@ class _DenseExpansionState extends State<DenseExpansion> with SingleTickerProvid
 
   void _handleTap() {
     setState(() {
-      _isExpanded = !_isExpanded;
-      if (_isExpanded)
+      widget.isExpanded = !widget.isExpanded;
+      if (widget.isExpanded)
         _controller.forward();
       else
         _controller.reverse().then<void>((Null value) {
@@ -118,10 +118,10 @@ class _DenseExpansionState extends State<DenseExpansion> with SingleTickerProvid
             // Rebuild without widget.children.
           });
         });
-      PageStorage.of(context)?.writeState(context, _isExpanded);
+      // PageStorage.of(context)?.writeState(context, _isExpanded);
     });
     if (widget.onExpansionChanged != null)
-      widget.onExpansionChanged(_isExpanded);
+      widget.onExpansionChanged(widget.isExpanded);
   }
 
   Widget _buildChildren(BuildContext context, Widget child) {
@@ -173,7 +173,7 @@ class _DenseExpansionState extends State<DenseExpansion> with SingleTickerProvid
       ..end = theme.accentColor;
     _backgroundColor.end = widget.backgroundColor;
 
-    final bool closed = !_isExpanded && _controller.isDismissed;
+    final bool closed = !widget.isExpanded && _controller.isDismissed;
     return  AnimatedBuilder(
       animation: _controller.view,
       builder: _buildChildren,

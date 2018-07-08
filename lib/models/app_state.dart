@@ -3,9 +3,11 @@ import 'package:mldemos/themes.dart';
 class AppState {
 
   final String activeRoute;
-  final bool isLoading;
-  final bool isPredicting;
   final String theme;
+  final bool isLoading;
+
+  final bool isPredicting;
+  final bool correctionExpaneded;
   final dynamic prediction;
 
   AppState({
@@ -14,6 +16,7 @@ class AppState {
     this.isPredicting = false,
     this.theme,
     this.prediction,
+    this.correctionExpaneded = false,
   });
 
   factory AppState.loading() => AppState(
@@ -27,16 +30,24 @@ class AppState {
     bool isPredicting,
     String theme,
     dynamic prediction,
+    bool correctionExpanded,
   }) => AppState(
     activeRoute: activeRoute ?? this.activeRoute,
     isLoading: isLoading ?? this.isLoading,
     isPredicting: isPredicting ?? this.isPredicting,
     theme: theme ?? this.theme,
     prediction: prediction ?? this.prediction,
+    correctionExpaneded: correctionExpanded ?? this.correctionExpaneded,
   );
 
   @override
-  int get hashCode => activeRoute.hashCode ^ isLoading.hashCode ^ isPredicting.hashCode ^ theme.hashCode ^ prediction.hashCode;
+  int get hashCode =>
+    activeRoute.hashCode ^
+    isLoading.hashCode ^
+    isPredicting.hashCode ^
+    theme.hashCode ^
+    prediction.hashCode ^
+    correctionExpaneded.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -47,6 +58,7 @@ class AppState {
       isLoading == other.isLoading &&
       isPredicting == other.isPredicting &&
       theme == other.theme &&
-      prediction == other.prediction;
+      prediction == other.prediction &&
+      correctionExpaneded == other.correctionExpaneded;
 
 }

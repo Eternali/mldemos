@@ -128,7 +128,7 @@ class _ControlledExpansionState extends State<ControlledExpansion> with SingleTi
     final Color borderSideColor = _borderColor.evaluate(_easeOutAnimation) ?? Colors.transparent;
     final Color titleColor = _headerColor.evaluate(_easeInAnimation);
 
-    return  Container(
+    return Container(
       decoration:  BoxDecoration(
         color: _backgroundColor.evaluate(_easeOutAnimation) ?? Colors.transparent,
       ),
@@ -174,10 +174,12 @@ class _ControlledExpansionState extends State<ControlledExpansion> with SingleTi
     _backgroundColor.end = widget.backgroundColor;
 
     final bool closed = !widget.isExpanded && _controller.isDismissed;
-    return  AnimatedBuilder(
-      animation: _controller.view,
-      builder: _buildChildren,
-      child: closed ? null :  Column(children: widget.children),
+    return PredictionListener(
+      builder: (BuildContext context, PredictionListenerVM vm) => AnimatedBuilder(
+        animation: _controller.view,
+        builder: _buildChildren,
+        child: closed ? null :  Column(children: widget.children),
+      ),
     );
 
   }

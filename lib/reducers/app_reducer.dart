@@ -1,4 +1,5 @@
 import 'package:mldemos/models/models.dart';
+import 'package:mldemos/reducers/expansion_reducer.dart';
 import 'package:mldemos/reducers/loading_reducer.dart';
 import 'package:mldemos/reducers/predict_reducer.dart';
 import 'package:mldemos/reducers/route_reducer.dart';
@@ -11,5 +12,6 @@ AppState appReducer(AppState state, action) {
     isPredicting: predictingReducer(state.isPredicting, action),
     theme: themeReducer(state.theme, action),
     prediction: predictReducer(state.prediction, action),
+    correctionExpaneded: correctionExpansionReducer(state.correctionExpaneded, action),
   );
 }

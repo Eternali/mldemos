@@ -42,7 +42,7 @@ class DemoScreen extends StatelessWidget {
                 parent.desc != null ? Container(
                   margin: EdgeInsets.only(top: 4.0),
                   child: DenseExpansion(
-                    initiallyExpanded: true,
+                    isExpanded: true,
                     title: Text(
                       locales.description
                     ),
@@ -59,7 +59,7 @@ class DemoScreen extends StatelessWidget {
                 parent.instructions != null ? Container(
                   margin: EdgeInsets.only(bottom: 8.0),
                   child: DenseExpansion(
-                    initiallyExpanded: true,
+                    isExpanded: true,
                     title: Text(
                       locales.instructions
                     ),

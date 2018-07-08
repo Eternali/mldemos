@@ -24,3 +24,8 @@ class LoadDemoAction {
 class LoadPredictionAction {
 
 }
+
+class ToggleCorrecterAction {
+
+}
+
